@@ -145,8 +145,8 @@ Inference rate: 408.2 predictions/second
 ```
 
 ## 📊 Results Summary
-<img width="2302" height="713" alt="image" src="https://github.com/user-attachments/assets/b413f2cf-f093-487b-99c9-3ae6186c68e5" />
-<img width="967" height="869" alt="image" src="https://github.com/user-attachments/assets/b3926804-fca3-412b-a737-7efdf63f7f1e" />
+<img width="2000" height="700" alt="image" src="https://github.com/user-attachments/assets/b413f2cf-f093-487b-99c9-3ae6186c68e5" />
+<img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/b3926804-fca3-412b-a737-7efdf63f7f1e" />
 
 ### Performance Metrics
 
