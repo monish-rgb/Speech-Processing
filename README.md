@@ -1,4 +1,4 @@
-# Lightweight Spoken Digit Recognition Prototype
+# Spoken Digit Recognition Prototype
 
 A lightweight, efficient prototype for recognizing spoken digits (0-9) using the [free-spoken-digit-dataset](https://huggingface.co/datasets/mteb/free-spoken-digit-dataset) from Hugging Face.
 
@@ -8,23 +8,21 @@ This prototype demonstrates a lightweight solution for spoken digit recognition 
 
 ## ✨ Key Features
 
-- **Ultra-lightweight**: <100KB model size with quantization
+- **Ultra-lightweight**: <100KB model size
 - **Fast inference**: <10ms response time
 - **High accuracy**: >95% recognition rate
 - **Modular design**: Clean, extensible architecture
-- **Real-time capable**: Optimized for low-latency applications
-- **Production ready**: Includes optimization and deployment features
+- **Real-time capable**: Can be optimized for low-latency applications
 
 ## 🏗️ Architecture
 
 ### Core Components
 
 1. **AudioFeatureExtractor**: Efficient MFCC feature extraction optimized for speech
-2. **LightweightDigitRecognizer**: Compact CNN architecture with minimal parameters
+2. **LightweightDigitRecognizer**: Compact CNN architecture with minimal parameters to make model lightweight
 3. **DigitDataset**: Custom dataset class with pre-extracted features
 4. **ModelTrainer**: Comprehensive training pipeline with monitoring
 5. **RealTimeDigitRecognizer**: Low-latency inference engine
-6. **OptimizedDigitRecognizer**: Quantized model for deployment
 
 ### Model Architecture
 
@@ -40,7 +38,7 @@ Input: (batch_size, 13, 50) MFCC features
 
 ## 📊 Performance Metrics
 
-- **Model Size**: <100KB (quantized)
+- **Model Size**: <100KB
 - **Inference Time**: <10ms
 - **Accuracy**: >95% on test set
 - **Memory Usage**: Optimized for edge devices
@@ -62,7 +60,7 @@ python speech_digit_recognition.py
 The script will:
 1. Download the free-spoken-digit-dataset
 2. Extract audio features (MFCC)
-3. Train the lightweight model
+3. Train the model
 4. Evaluate performance
 5. Test real-time recognition
 6. Generate performance visualizations
@@ -71,7 +69,7 @@ The script will:
 
 ```
 ================================================================================
-LIGHTWEIGHT SPOKEN DIGIT RECOGNITION PROTOTYPE
+SPOKEN DIGIT RECOGNITION PROTOTYPE
 ================================================================================
 Using device: cuda (or cpu)
 PyTorch version: 2.x.x
@@ -164,15 +162,9 @@ history = trainer.train(
 
 ### ✅ LLM Collaboration
 - **Architectural reasoning**: Evidence of thoughtful model design choices
-- **Optimization strategies**: Quantization, batch processing, memory management
+- **Optimization strategies**: batch processing, memory management
 - **Performance analysis**: Comprehensive evaluation and debugging capabilities
 - **Documentation**: Clear explanations of design decisions and trade-offs
-
-### ✅ Creative Energy
-- **Innovative approach**: Lightweight design philosophy
-- **Efficiency focus**: Multiple optimization techniques
-- **Curiosity-driven**: Exploration of model compression and deployment
-- **Boundary pushing**: Balancing performance with resource constraints
 
 ## 🎨 Advanced Features
 
@@ -192,13 +184,6 @@ for result in results:
     print(f"File: {result['audio_path']}, Digit: {result['predicted_digit']}")
 ```
 
-### Model Quantization
-
-```python
-optimized = OptimizedDigitRecognizer('model.pth')
-digit, time = optimized.predict(features)
-print(f"Quantized model: {digit} in {time:.2f}ms")
-```
 
 ## 📁 Project Structure
 
@@ -207,7 +192,6 @@ Speech-Processing/
 ├── speech_digit_recognition.py    # Main implementation
 ├── requirements.txt               # Dependencies
 ├── README.md                     # This file
-├── speech processing.ipynb       # Jupyter notebook (empty)
 └── venv/                        # Virtual environment
 ```
 
@@ -215,7 +199,7 @@ Speech-Processing/
 
 ### Audio Processing Pipeline
 
-1. **Audio Loading**: librosa for efficient audio loading
+1. **Audio Loading**: torchaudio for efficient audio loading
 2. **Feature Extraction**: MFCC with optimized parameters
 3. **Normalization**: Z-score normalization for stability
 4. **Padding**: Fixed-length output for batch processing
@@ -228,11 +212,9 @@ Speech-Processing/
 4. **Checkpointing**: Save best model based on validation
 
 ### Deployment Optimizations
-
-1. **Quantization**: Dynamic quantization for size reduction
-2. **CPU deployment**: Optimized for edge devices
-3. **Memory management**: Efficient batch processing
-4. **Error handling**: Robust inference pipeline
+1. **CPU deployment**: Optimized for edge devices
+2. **Memory management**: Efficient batch processing
+3. **Error handling**: Robust inference pipeline
 
 ## 🚀 Future Enhancements
 
@@ -265,4 +247,4 @@ This project is open source and available under the MIT License.
 
 ---
 
-**Built with ❤️ and AI collaboration** - Demonstrating the power of combining human creativity with AI assistance for innovative solutions in speech processing.
+**Built with AI collaboration** - Demonstrating the power of combining human creativity with AI assistance for innovative solutions in speech processing.
