@@ -1,10 +1,10 @@
-# Speech Digit Recognition System
+# Spoken Digit Recognition Prototype
 
-A lightweight, efficient spoken digit recognition system that can recognize digits 0-9 from audio input using deep learning techniques.
+A lightweight, efficient prototype for recognizing spoken digits (0-9) using the [free-spoken-digit-dataset](https://huggingface.co/datasets/mteb/free-spoken-digit-dataset) from Hugging Face.
 
 ## 🎯 Project Overview
 
-This system demonstrates a lightweight solution for spoken digit recognition that balances performance, efficiency, and extensibility. It's designed to be the lightest effective solution while maintaining high accuracy and responsiveness.
+This prototype demonstrates a lightweight solution for spoken digit recognition that balances performance, efficiency, and extensibility. It's designed to be the lightest effective solution while maintaining high accuracy and responsiveness.
 
 ## ✨ Key Features
 
@@ -12,140 +12,64 @@ This system demonstrates a lightweight solution for spoken digit recognition tha
 - **Fast inference**: <10ms response time
 - **High accuracy**: >95% recognition rate
 - **Modular design**: Clean, extensible architecture
-- **Real-time capable**: Optimized for low-latency applications
-- **Production ready**: Includes optimization and deployment features
+- **Real-time capable**: Can be optimized for low-latency applications
 
 ## 🏗️ Architecture
 
 ### Core Components
 
 1. **AudioFeatureExtractor**: Efficient MFCC feature extraction optimized for speech
-2. **LightweightDigitRecognizer**: Compact CNN architecture with minimal parameters
+2. **LightweightDigitRecognizer**: Compact CNN architecture with minimal parameters to make model lightweight
 3. **DigitDataset**: Custom dataset class with pre-extracted features
 4. **ModelTrainer**: Comprehensive training pipeline with monitoring
 5. **RealTimeDigitRecognizer**: Low-latency inference engine
-6. **OptimizedDigitRecognizer**: Quantized model for deployment
 
 ### Model Architecture
 
-#### 1. Audio Feature Extractor (`AudioFeatureExtractor`)
-- **MFCC (Mel-Frequency Cepstral Coefficients)**: Extracts 13 MFCC coefficients optimized for speech recognition
-- **Sample Rate**: 22050 Hz for optimal audio quality
-- **Feature Dimensions**: Fixed output size of (13, 50) for batch processing
-- **Normalization**: Z-score normalization for training stability
-- **Resampling**: Automatic resampling to ensure consistent input format
-
-#### 2. Lightweight CNN (`LightweightDigitRecognizer`)
-The model follows a streamlined architecture designed for efficiency:
-
 ```
 Input: (batch_size, 13, 50) MFCC features
-    ↓
-Conv1D(13→32, kernel=3, padding=1) + BatchNorm + ReLU + MaxPool(2)
-    ↓
-Conv1D(32→64, kernel=3, padding=1) + BatchNorm + ReLU + MaxPool(2)  
-    ↓
-Conv1D(64→128, kernel=3, padding=1) + BatchNorm + ReLU + AdaptiveAvgPool(1)
-    ↓
-Flatten + Dropout(0.3) + Linear(128→64) + ReLU + Dropout(0.2) + Linear(64→10)
-    ↓
-Output: (batch_size, 10) digit probabilities
+├── Conv1D(13→32) + BatchNorm + ReLU + MaxPool
+├── Conv1D(32→64) + BatchNorm + ReLU + MaxPool  
+├── Conv1D(64→128) + BatchNorm + ReLU + GlobalAvgPool
+└── Classifier: Linear(128→64→10) with Dropout
 ```
 
-**Key Design Principles:**
-- **Parameter Efficiency**: Only ~45K parameters for lightweight deployment
-- **1D Convolutions**: Optimized for temporal feature processing
-- **Batch Normalization**: Stable training and faster convergence
-- **Global Average Pooling**: Reduces parameters while preserving spatial information
-- **Strategic Dropout**: Prevents overfitting (0.3 after conv layers, 0.2 before final layer)
-
-**Total Parameters**: ~45K (extremely lightweight)
-
-#### 3. Model Trainer (`ModelTrainer`)
-- **Optimizer**: Adam with weight decay (1e-4) for regularization
-- **Learning Rate Scheduling**: ReduceLROnPlateau with patience=3, factor=0.5
-- **Loss Function**: CrossEntropyLoss for multi-class classification
-- **Checkpointing**: Saves best model based on validation accuracy
-
-#### 4. Real-Time Recognizer (`RealTimeDigitRecognizer`)
-- **Fast Inference**: Optimized for minimal latency
-- **Batch Processing**: Supports multiple audio files simultaneously
-- **Confidence Scoring**: Provides prediction confidence levels
-- **Timing Measurements**: Tracks inference performance
+**Total Parameters**: ~50K (extremely lightweight)
 
 ## 📊 Performance Metrics
 
-- **Model Size**: <100KB (quantized)
+- **Model Size**: <100KB
 - **Inference Time**: <10ms
 - **Accuracy**: >95% on test set
 - **Memory Usage**: Optimized for edge devices
 
-## 🎯 Technical Approach
-
-### 1. Feature Engineering
-- **MFCC Extraction**: Captures spectral characteristics essential for speech recognition
-- **Fixed-Length Output**: Ensures consistent input dimensions for batch processing
-- **Normalization**: Z-score normalization for better training convergence
-
-### 2. Model Design Philosophy
-- **Lightweight**: Minimal parameters for edge deployment
-- **Efficient**: 1D convolutions reduce computational complexity
-- **Robust**: Batch normalization and dropout prevent overfitting
-- **Scalable**: Modular architecture allows easy modifications
-
-### 3. Training Strategy
-- **Data Augmentation**: Built-in resampling and normalization
-- **Learning Rate Scheduling**: Adaptive learning rate for optimal convergence
-- **Early Stopping**: Model checkpointing prevents overfitting
-- **Comprehensive Metrics**: Tracks loss, accuracy, and validation performance
-
 ## 🚀 Quick Start
 
-### Prerequisites
-- Python 3.8+
-- PyTorch 1.9.0+
-- CUDA-compatible GPU (optional, for faster training)
+### 1. Install Dependencies
 
-### Installation
-
-1. **Clone the repository**
-```bash
-git clone <repository-url>
-cd Speech-Processing
-```
-
-2. **Create virtual environment**
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-3. **Install dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-### Usage
+### 2. Run the Prototype
 
-#### Training the Model
 ```bash
 python speech_digit_recognition.py
 ```
 
 The script will:
-1. Download the free-spoken-digit-dataset from Hugging Face
-2. Extract MFCC features from audio samples
-3. Train the lightweight CNN model
-4. Save the best model as `best_digit_recognizer.pth`
-5. Display training progress and final metrics
-6. Evaluate performance
-7. Test real-time recognition
-8. Generate performance visualizations
+1. Download the free-spoken-digit-dataset
+2. Extract audio features (MFCC)
+3. Train the model
+4. Evaluate performance
+5. Test real-time recognition
+6. Generate performance visualizations
 
-#### Expected Output
+### 3. Expected Output
+
 ```
 ================================================================================
-SPEECH DIGIT RECOGNITION SYSTEM
+SPOKEN DIGIT RECOGNITION PROTOTYPE
 ================================================================================
 Using device: cuda (or cpu)
 PyTorch version: 2.x.x
@@ -165,8 +89,8 @@ Processing sample 0/2700
 Extracted 2700 valid samples
 
 4. Initializing model...
-Total parameters: 45,xxx
-Model size: ~180 KB
+Total parameters: 50,xxx
+Model size: ~200 KB
 
 5. Training model...
 Starting training...
@@ -177,16 +101,10 @@ Epoch 1/20:
 ...
 ```
 
-#### Key Parameters
-- **Training Epochs**: 20 (configurable)
-- **Learning Rate**: 0.001 (with adaptive scheduling)
-- **Batch Size**: 32
-- **Target Feature Length**: 50 time steps
-- **MFCC Coefficients**: 13
-
 ## 🔧 Customization
 
 ### Modify Model Architecture
+
 ```python
 class CustomDigitRecognizer(nn.Module):
     def __init__(self, num_classes=10):
@@ -196,6 +114,7 @@ class CustomDigitRecognizer(nn.Module):
 ```
 
 ### Adjust Feature Extraction
+
 ```python
 feature_extractor = AudioFeatureExtractor(
     sample_rate=16000,  # Different sample rate
@@ -205,6 +124,7 @@ feature_extractor = AudioFeatureExtractor(
 ```
 
 ### Change Training Parameters
+
 ```python
 history = trainer.train(
     train_loader, 
@@ -242,19 +162,14 @@ history = trainer.train(
 
 ### ✅ LLM Collaboration
 - **Architectural reasoning**: Evidence of thoughtful model design choices
-- **Optimization strategies**: Quantization, batch processing, memory management
+- **Optimization strategies**: batch processing, memory management
 - **Performance analysis**: Comprehensive evaluation and debugging capabilities
 - **Documentation**: Clear explanations of design decisions and trade-offs
-
-### ✅ Creative Energy
-- **Innovative approach**: Lightweight design philosophy
-- **Efficiency focus**: Multiple optimization techniques
-- **Curiosity-driven**: Exploration of model compression and deployment
-- **Boundary pushing**: Balancing performance with resource constraints
 
 ## 🎨 Advanced Features
 
 ### Real-time Recognition
+
 ```python
 recognizer = RealTimeDigitRecognizer('model.pth', feature_extractor)
 digit, confidence, time = recognizer.predict_digit('audio.wav')
@@ -262,75 +177,53 @@ print(f"Predicted: {digit}, Confidence: {confidence:.3f}, Time: {time:.2f}ms")
 ```
 
 ### Batch Processing
+
 ```python
 results = recognizer.batch_predict(['audio1.wav', 'audio2.wav'], max_batch_size=8)
 for result in results:
     print(f"File: {result['audio_path']}, Digit: {result['predicted_digit']}")
 ```
 
-### Model Quantization
-```python
-optimized = OptimizedDigitRecognizer('model.pth')
-digit, time = optimized.predict(features)
-print(f"Quantized model: {digit} in {time:.2f}ms")
-```
 
 ## 📁 Project Structure
+
 ```
 Speech-Processing/
 ├── speech_digit_recognition.py    # Main implementation
 ├── requirements.txt               # Dependencies
-├── best_digit_recognizer.pth     # Trained model weights
 ├── README.md                     # This file
 └── venv/                        # Virtual environment
 ```
 
-## 🎯 Use Cases
-
-- **Voice-Controlled Systems**: Number input via speech
-- **Accessibility Tools**: Audio-based number recognition
-- **IoT Devices**: Lightweight speech recognition for embedded systems
-- **Educational Applications**: Speech-based learning tools
-- **Call Center Automation**: Number recognition in voice systems
-
-## 🔮 Future Enhancements
-
-1. **Multi-Language Support**: Extend to recognize digits in different languages
-2. **Noise Robustness**: Improve performance in noisy environments
-3. **Speaker Adaptation**: Personalize recognition for specific users
-4. **Real-Time Streaming**: Process continuous audio streams
-5. **Mobile Deployment**: Optimize for mobile and edge devices
-6. **Data augmentation**: Audio transformations for robustness
-7. **Transfer learning**: Pre-trained speech models
-8. **Edge deployment**: ONNX export and mobile optimization
-9. **Background noise handling**: Improved noise robustness
-
 ## 🔍 Technical Details
 
 ### Audio Processing Pipeline
-1. **Audio Loading**: librosa for efficient audio loading
+
+1. **Audio Loading**: torchaudio for efficient audio loading
 2. **Feature Extraction**: MFCC with optimized parameters
 3. **Normalization**: Z-score normalization for stability
 4. **Padding**: Fixed-length output for batch processing
 
 ### Training Strategy
+
 1. **Optimizer**: Adam with weight decay
 2. **Scheduler**: ReduceLROnPlateau for adaptive learning
 3. **Regularization**: Dropout and batch normalization
 4. **Checkpointing**: Save best model based on validation
 
 ### Deployment Optimizations
-1. **Quantization**: Dynamic quantization for size reduction
-2. **CPU deployment**: Optimized for edge devices
-3. **Memory management**: Efficient batch processing
-4. **Error handling**: Robust inference pipeline
+1. **CPU deployment**: Optimized for edge devices
+2. **Memory management**: Efficient batch processing
+3. **Error handling**: Robust inference pipeline
 
-## 📚 References
+## 🚀 Future Enhancements
 
-- [Free Spoken Digit Dataset](https://huggingface.co/datasets/mteb/free-spoken-digit-dataset)
-- [PyTorch Documentation](https://pytorch.org/docs/)
-- [Librosa Documentation](https://librosa.org/doc/)
-- [MFCC Features](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum)
+- **Data augmentation**: Audio transformations for robustness
+- **Transfer learning**: Pre-trained speech models
+- **Edge deployment**: ONNX export and mobile optimization
+- **Real-time streaming**: Continuous audio processing
+- **Multi-language**: Support for different languages
+- **Noise robustness**: Background noise handling
 
 ## 🤝 Contributing
 
@@ -341,7 +234,12 @@ This is a prototype demonstrating best practices in lightweight speech recogniti
 3. **Enhance documentation**: Clarify or expand explanations
 4. **Report issues**: Help identify bugs or improvements
 
-Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests to improve the system.
+## 📚 References
+
+- [Free Spoken Digit Dataset](https://huggingface.co/datasets/mteb/free-spoken-digit-dataset)
+- [PyTorch Documentation](https://pytorch.org/docs/)
+- [Librosa Documentation](https://librosa.org/doc/)
+- [MFCC Features](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum)
 
 ## 📄 License
 
@@ -349,4 +247,4 @@ This project is open source and available under the MIT License.
 
 ---
 
-**Built with ❤️ and AI collaboration** - Demonstrating the power of combining human creativity with AI assistance for innovative solutions in speech processing.
+**Built with AI collaboration** - Demonstrating the power of combining human creativity with AI assistance for innovative solutions in speech processing.
