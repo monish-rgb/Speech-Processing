@@ -15,7 +15,7 @@ This prototype demonstrates a lightweight solution for spoken digit recognition 
 - **High accuracy**: >95% recognition rate
 - **Robust fallbacks**: Multiple fallback strategies for dependency issues
 - **Linear implementation**: Clean, easy-to-debug code structure
-- **Real-time capable**: Optimized for low-latency applications
+- **Real-time capable**: Also gives predictions from system microphone as input
 
 ## 🏗️ Architecture & Approach
 
@@ -169,7 +169,6 @@ Inference rate: 408.2 predictions/second
 - **Latency**: <3ms average inference time
 - **Throughput**: 400+ predictions/second
 - **Memory**: <100MB RAM usage
-- **Scalability**: Handles batch processing efficiently
 
 ## Evaluation Criteria Assessment
 
@@ -228,6 +227,7 @@ N_FRAMES = 100         # Longer time sequences
 ```
 Speech-Processing/
 ├── speech_digit_recognition.py    # Main implementation (linear approach)
+|-- real_time_prediction.py        # takes input from device and gives confidence score
 ├── requirements.txt               # Dependencies
 ├── README.md                     # This comprehensive guide
 └── venv/                        # Virtual environment
